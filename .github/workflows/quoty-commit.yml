@@ -1,0 +1,29 @@
+name: Commit Daily Motivational Quote
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Exécutez tous les jours à minuit
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Run Python script
+        run: python quoty.py # Le nom de votre script Python
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "Quoty Bot"
+          git config user.email "parifoot19@gmail.com"
+          git add motivational_quote.txt
+          git commit -m "Automated daily commit"
+          git push
